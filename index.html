@@ -1557,27 +1557,25 @@ function handleSaveFullProfile(e) {
   const avatar = document.getElementById('prof-avatar').value.trim() || state.user.avatar;
   const ageGroup = document.getElementById('prof-ageGroup').value;
 
-  const carKm = +document.getElementById('prof-carKm').value || 0;
-  const bikeKm = +document.getElementById('prof-bikeKm').value || 0;
-  const busTr = +document.getElementById('prof-busTr').value || 0;
-  const metroTr = +document.getElementById('prof-metroTr').value || 0;
-  const kwh = +document.getElementById('prof-kwh').value || 0;
+  const carKm = Math.max(0, +document.getElementById('prof-carKm').value || 0);
+  const bikeKm = Math.max(0, +document.getElementById('prof-bikeKm').value || 0);
+  const busTr = Math.max(0, +document.getElementById('prof-busTr').value || 0);
+  const metroTr = Math.max(0, +document.getElementById('prof-metroTr').value || 0);
+  const kwh = Math.max(0, +document.getElementById('prof-kwh').value || 0);
   const diet = document.getElementById('prof-diet').value;
 
   state.lifestyle = { ...state.lifestyle, carKm, bikeKm, busTr, metroTr, kwh, diet, ageGroup };
   saveLifestyle(state.lifestyle);
 
   const res = calcCarbon(state.lifestyle);
-  let persona = 'Eco Beginner';
-  if (res.breakdown[0].name === 'Transportation') persona = 'Carbon Challenger';
-  if (res.breakdown[0].name === 'Electricity') persona = 'Energy Explorer';
+  const personaInfo = getAIGreenPersona(res, state.user?.completedCount || 0);
 
   const updatedUser = {
     ...state.user,
     name,
     ward,
     avatar,
-    persona
+    persona: personaInfo.title
   };
 
   updateUser(updatedUser);
