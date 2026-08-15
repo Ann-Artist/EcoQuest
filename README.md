@@ -7,7 +7,37 @@
 
 **Measure · Understand · Personalize · Play · Verify · Reward · Compete · Reduce**
 
-EcoQuest converts everyday real-world sustainable actions across Pune into an engaging, gamified experience. Instead of behaving like a static, one-time carbon calculator, it establishes a continuous adaptive loop powered by an **AI Personalization & Verification Engine**.
+EcoQuest converts everyday real-world sustainable actions across Pune into an engaging, gamified experience. Instead of behaving like a static carbon calculator, it establishes a continuous adaptive loop powered by an **AI Personalization, Vision Verification & Anti-Cheat Engine**.
+
+---
+
+## 📸 Website Showcase & Screenshots
+
+### 1. Landing & Level 1 Onboarding
+Clean, modern dark-mode landing experience with zero-friction entry:
+
+![EcoQuest Landing Page](docs/assets/hero_landing.png)
+
+---
+
+### 2. Citizen Dashboard & AI Hotspot Breakdown
+Personalized emission analysis across 5 categories, real-time streaks, and AI weekly summaries:
+
+![Citizen Dashboard & AI Hotspot Breakdown](docs/assets/dashboard_overview.png)
+
+---
+
+### 3. AI Vision Object Detection & EcoGuard Geotag Verification
+Interactive photo proof upload with live Pune GPS coordinates validation (`18.5204° N, 73.8567° E`) and simulated AI object detection confidence scoring:
+
+![EcoGuard AI Verification Modal](docs/assets/quest_verification_modal.png)
+
+---
+
+### 4. Pune Wall of Champions & Real-Time Leaderboard
+Live rankings of all registered citizens and administrators across Pune municipal wards:
+
+![Pune Wall of Champions Leaderboard](docs/assets/leaderboard_view.png)
 
 ---
 
@@ -70,7 +100,7 @@ EcoQuest features an 8-component AI architecture designed for real-time personal
 
 ## 🌟 Official Character Avatars
 
-EcoQuest includes 6 high-resolution character avatars:
+EcoQuest includes 6 official high-resolution character avatars:
 
 | Character | Tagline | Focus Area | Asset Path |
 |---|---|---|---|
@@ -85,7 +115,7 @@ EcoQuest includes 6 high-resolution character avatars:
 
 ## 🎮 Gamification & Level Progression
 
-Citizens progress through a 6-tier level structure:
+Citizens progress through a 6-tier level progression:
 
 ```text
 Level 1: Eco Seedling  (0 XP)       🌱
@@ -132,7 +162,11 @@ EcoQuest/
 │   └── nova.png
 ├── docs/                         # Documentation & Specifications
 │   ├── implementation.md         # 100% Completion Audit & Implementation Plan
-│   └── assets/                   # Architecture & system flow diagrams
+│   └── assets/                   # Screenshots, architecture & system flow diagrams
+│       ├── hero_landing.png
+│       ├── dashboard_overview.png
+│       ├── quest_verification_modal.png
+│       └── leaderboard_view.png
 ├── lib/                          # Backend & AI Engine Modules
 │   ├── ai/                       # AI Hotspot, Persona, Vision, Recommendations, Report, & Chat
 │   │   ├── hotspot.ts
@@ -154,7 +188,7 @@ EcoQuest/
 ├── data/                         # Quest, badge, reward, & emission datasets
 ├── index.html                    # 100% Self-contained Single-Page Application
 ├── server.ps1                    # Local PowerShell HTTP Web Server
-└── README.md                     # Project Overview & Guide
+└── README.md                     # Project Overview & Visual Showcase
 ```
 
 ---
@@ -170,16 +204,21 @@ powershell -ExecutionPolicy Bypass -File server.ps1
 Then open your browser and navigate to: **`http://localhost:8000`**
 
 ### Option 2: Direct File Launch
-Simply double-click or open `index.html` directly in any modern browser!
+Simply double-click or open `index.html` directly in any modern web browser!
 
 ---
 
-## 🌿 Structured GitHub Branches
+## ☁️ Deployment Options
 
-- **`main`**: Full production application code, documentation, and assets.
-- **`frontend`**: Single-page application UI, views, components, and design system.
-- **`backend`**: AI Engine modules, Carbon engine, Supabase auth schemas, and EcoGuard anti-cheat rules.
+EcoQuest includes configuration for free, 1-click deployment across multiple platforms:
+
+| Platform | Deployment Method | Notes |
+|---|---|---|
+| **GitHub Pages** | Settings ➔ Pages ➔ Deploy from `main` | Zero-config (`404.html` + `.nojekyll` included) |
+| **Netlify** | Import `Ann-Artist/EcoQuest` | Clean SPA rewrites via `_redirects` |
+| **Render** | Create Static Site from GitHub repo | Automatic global CDN |
+| **Vercel** | Import `Ann-Artist/EcoQuest` | Native single-page routing via `vercel.json` |
 
 ---
+
 **EcoQuest — Play Green. Live Better.** 🌍
-
