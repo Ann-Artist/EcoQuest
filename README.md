@@ -182,4 +182,4 @@ Simply double-click or open `index.html` directly in any modern browser!
 
 ---
 
-**EcoQuest — Play Green. Live Better.** 🌍
+
