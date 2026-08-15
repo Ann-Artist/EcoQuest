@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { UserProfile, LifestyleInputs, PuneWard } from '@/types';
 import { getStoredLifestyleInputs, saveLifestyleInputs, saveUserProfile } from '../../lib/storage';

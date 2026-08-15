@@ -1,3 +1,5 @@
+'use client';
+
 import React from 'react';
 import { UserProfile, CarbonResult } from '@/types';
 import { GlassCard } from '../../components/ui/GlassCard';

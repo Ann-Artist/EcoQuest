@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { registerDatabaseUser } from '../../lib/supabase/auth';
 import { PuneWard, AgeGroup } from '@/types';

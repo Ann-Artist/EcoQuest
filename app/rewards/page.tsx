@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { UserProfile, RewardCampaign } from '@/types';
 import { GlassCard } from '../../components/ui/GlassCard';

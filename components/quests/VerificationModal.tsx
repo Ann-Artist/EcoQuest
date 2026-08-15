@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import { Quest, ProofSubmission } from '../../types';
 import { runEcoGuardAudit } from '../../lib/verification/ecoguard';

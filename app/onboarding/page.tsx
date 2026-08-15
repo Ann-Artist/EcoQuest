@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { AgeGroup, PuneWard, LifestyleInputs, CarbonResult, UserProfile } from '@/types';
 import { AgeGroupPage } from './age-group/page';

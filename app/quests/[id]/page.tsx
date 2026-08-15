@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { Quest, UserQuestState, ProofSubmission, UserProfile } from '@/types';
 import { GlassCard } from '../../../components/ui/GlassCard';

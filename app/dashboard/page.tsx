@@ -1,3 +1,5 @@
+'use client';
+
 import React, { useState } from 'react';
 import { UserProfile, CarbonResult, Quest, UserQuestState, ProofSubmission } from '@/types';
 import { HeroCanopyCard } from '../../components/dashboard/HeroCanopyCard';
