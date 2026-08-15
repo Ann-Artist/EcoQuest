@@ -193,20 +193,28 @@ function getDB() {
   const r = localStorage.getItem(SK.DB);
   let db = r ? JSON.parse(r) : [];
   
-  if (!db.find(u => u.email.toLowerCase() === 'aarav.sharma@pune.edu.in')) {
-    db.push({
+  let aarav = db.find(u => u.email.toLowerCase() === 'aarav.sharma@pune.edu.in');
+  if (!aarav) {
+    aarav = {
       id: 'usr_demo', name: 'Aarav Sharma', email: 'aarav.sharma@pune.edu.in', password: 'aarav2026', ward: 'Kothrud', role: 'user',
       xp: 0, level: 1, levelTitle: 'Eco Seedling', streak: 0, completedCount: 0, co2Avoided: 0, persona: 'Eco Beginner',
       avatar: 'avatars/eco.png'
-    });
+    };
+    db.push(aarav);
+  } else if (!aarav.avatar || aarav.avatar.includes('unsplash')) {
+    aarav.avatar = 'avatars/eco.png';
   }
   
-  if (!db.find(u => u.email.toLowerCase() === 'ann@gmail.com')) {
-    db.push({
+  let ann = db.find(u => u.email.toLowerCase() === 'ann@gmail.com');
+  if (!ann) {
+    ann = {
       id: 'usr_admin_ann', name: 'PMC Admin Ann', email: 'ann@gmail.com', password: 'Ann@2026', ward: 'PMC Headquarters', role: 'admin',
       xp: 9999, level: 6, levelTitle: 'Planet Champion', streak: 100, completedCount: 50, co2Avoided: 500, persona: 'PMC Admin Director',
       avatar: 'avatars/lumia.png'
-    });
+    };
+    db.push(ann);
+  } else if (!ann.avatar || ann.avatar.includes('unsplash')) {
+    ann.avatar = 'avatars/lumia.png';
   }
 
   localStorage.setItem(SK.DB, JSON.stringify(db));
