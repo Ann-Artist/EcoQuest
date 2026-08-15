@@ -1,6 +1,6 @@
 Add-Type -AssemblyName System.Drawing
 
-$sourcePath = "d:\ANUSHA\EcoQuest\character sheet.png"
+$sourcePath = "d:\ANUSHA\EcoQuest\characters_sheet.png"
 $outDir = "d:\ANUSHA\EcoQuest\avatars"
 if (!(Test-Path $outDir)) { New-Item -ItemType Directory -Path $outDir }
 
@@ -25,8 +25,8 @@ foreach ($c in $coords) {
     $savePath = Join-Path $outDir "$($c.name).png"
     $target.Save($savePath, [System.Drawing.Imaging.ImageFormat]::Png)
     $target.Dispose()
-    Write-Host "Precisely saved $savePath"
+    Write-Host "Overwritten with new character sheet avatar: $savePath"
 }
 
 $src.Dispose()
-Write-Host "Precision avatar cropping complete!"
+Write-Host "New character sheet extraction complete!"
