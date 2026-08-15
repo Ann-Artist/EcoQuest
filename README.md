@@ -7,37 +7,87 @@
 
 **Measure · Understand · Personalize · Play · Verify · Reward · Compete · Reduce**
 
-EcoQuest converts everyday real-world sustainable actions across Pune into an engaging, gamified experience. Instead of behaving like a static carbon calculator, it establishes a continuous adaptive loop powered by an **AI Personalization, Vision Verification & Anti-Cheat Engine**.
+EcoQuest transforms everyday sustainable actions across Pune into an engaging, gamified adventure. Rather than operating as a static carbon calculator, EcoQuest provides a real-time adaptive ecosystem powered by an **AI Personalization, Vision Verification & EcoGuard Anti-Cheat Engine**.
 
 ---
 
-## 📸 Website Showcase & Screenshots
+## 🎬 Video Demonstration Walkthrough
 
-### 1. Landing & Level 1 Onboarding
-Clean, modern dark-mode landing experience with zero-friction entry:
+Watch the full end-to-end walkthrough of EcoQuest showing user registration, personalized quest completion, real-time leaderboards, AI assistants, and PMC administrator console:
 
-![EcoQuest Landing Page](docs/assets/hero_landing.png)
+https://github.com/user-attachments/assets/EcoQuest.mp4
 
----
-
-### 2. Citizen Dashboard & AI Hotspot Breakdown
-Personalized emission analysis across 5 categories, real-time streaks, and AI weekly summaries:
-
-![Citizen Dashboard & AI Hotspot Breakdown](docs/assets/dashboard_overview.png)
+> **Direct Video Asset**: [`docs/assets/EcoQuest.mp4`](docs/assets/EcoQuest.mp4)
 
 ---
 
-### 3. AI Vision Object Detection & EcoGuard Geotag Verification
-Interactive photo proof upload with live Pune GPS coordinates validation (`18.5204° N, 73.8567° E`) and simulated AI object detection confidence scoring:
+## 📸 Complete Website Visual Tour & Screenshots
 
-![EcoGuard AI Verification Modal](docs/assets/quest_verification_modal.png)
+### 🌟 1. Public Portal & Onboarding
+
+#### Landing & Hero Experience
+Modern dark-mode landing interface with zero-friction entry and direct registration CTA:
+![Landing Page Hero](docs/assets/01_landing_hero.png)
+
+#### New Citizen Registration
+Streamlined account creation initializing user level to Level 1 (0 XP Eco Seedling):
+![Create Account](docs/assets/02_create_account.png)
 
 ---
 
-### 4. Pune Wall of Champions & Real-Time Leaderboard
-Live rankings of all registered citizens and administrators across Pune municipal wards:
+### 📊 2. Citizen Experience & AI Gamification Engine
 
-![Pune Wall of Champions Leaderboard](docs/assets/leaderboard_view.png)
+#### Citizen Dashboard & AI Emission Hotspot Analysis
+Real-time carbon footprint baseline, AI Hotspot Analyzer isolating primary emission drivers, Green Persona badge, and action streak counters:
+![Citizen Dashboard](docs/assets/03_citizen_dashboard.png)
+
+#### Personalized Eco Quests Catalog
+Tailored quest recommendations with difficulty tiers, verification badges, and "Can't Do This" AI quest swap buttons:
+![Eco Quests Catalog](docs/assets/04_eco_quests_catalog.png)
+
+#### Eco Journey 6-Tier Progression Tree
+Visual progression pathway detailing unlocked and upcoming environmental rank titles from Eco Seedling to Planet Champion:
+![Eco Journey Progression Tree](docs/assets/05_eco_journey_progression.png)
+
+#### Achievement Badges Collection
+Milestone badges earned through quest completion counts, category actions, and consecutive daily streaks:
+![Achievement Badges](docs/assets/06_achievement_badges.png)
+
+#### Pune Real-Time Ward Leaderboard
+Live rankings of all registered Pune citizens and municipal administrators synchronized directly with the database:
+![Pune Realtime Leaderboard](docs/assets/07_pune_realtime_leaderboard.png)
+
+#### CO₂ Impact Dashboard & Category Emission Breakdown
+Detailed category-by-category metrics displaying monthly carbon savings and net emissions:
+![CO2 Impact Breakdown](docs/assets/08_co2_impact_breakdown.png)
+
+#### PMC Municipal & Transit Reward Campaigns
+Redeem earned EcoXP for exclusive Pune Municipal Corporation (PMC) certificates, urban sapling kits, and MahaMetro discounts:
+![PMC Reward Campaigns](docs/assets/09_pmc_reward_campaigns.png)
+
+#### Profile Settings & Official Character Avatar Selector
+Select from official high-resolution avatars and update personal lifestyle baseline parameters:
+![Profile & Avatar Settings](docs/assets/10_profile_avatar_settings.png)
+
+---
+
+### 👑 3. PMC Municipal Administrative Console
+
+#### PMC Admin Control Center Dashboard
+Central municipal command console displaying registered citizens count, active quests, system health, and EcoGuard anti-cheat integrity:
+![PMC Admin Dashboard](docs/assets/11_admin_dashboard.png)
+
+#### Real-Time Database User Directory
+Complete registry of all citizen and administrator accounts across Pune wards:
+![Database User Directory](docs/assets/12_admin_user_directory.png)
+
+#### EcoGuard AI Anti-Cheat Console
+Automated verification rules including velocity checks, duplicate photo SHA-256 hash detection, and Pune corridor GPS geofencing:
+![EcoGuard Anti-Cheat Console](docs/assets/13_admin_ecoguard_audit.png)
+
+#### Municipal Quest Catalog Management
+Create and configure active municipal quests, XP reward amounts, and CO₂ impact metrics:
+![Manage Quest Catalog](docs/assets/14_admin_manage_quests.png)
 
 ---
 
@@ -115,7 +165,7 @@ EcoQuest includes 6 official high-resolution character avatars:
 
 ## 🎮 Gamification & Level Progression
 
-Citizens progress through a 6-tier level progression:
+Citizens progress through a 6-tier progression system:
 
 ```text
 Level 1: Eco Seedling  (0 XP)       🌱
@@ -160,35 +210,35 @@ EcoQuest/
 │   ├── solina.png
 │   ├── eco.png
 │   └── nova.png
-├── docs/                         # Documentation & Specifications
+├── docs/                         # Documentation, Video & Media Assets
 │   ├── implementation.md         # 100% Completion Audit & Implementation Plan
-│   └── assets/                   # Screenshots, architecture & system flow diagrams
-│       ├── hero_landing.png
-│       ├── dashboard_overview.png
-│       ├── quest_verification_modal.png
-│       └── leaderboard_view.png
+│   └── assets/                   # Video demo, screenshots & system flow diagrams
+│       ├── EcoQuest.mp4          # Complete application video walkthrough
+│       ├── 01_landing_hero.png
+│       ├── 02_create_account.png
+│       ├── 03_citizen_dashboard.png
+│       ├── 04_eco_quests_catalog.png
+│       ├── 05_eco_journey_progression.png
+│       ├── 06_achievement_badges.png
+│       ├── 07_pune_realtime_leaderboard.png
+│       ├── 08_co2_impact_breakdown.png
+│       ├── 09_pmc_reward_campaigns.png
+│       ├── 10_profile_avatar_settings.png
+│       ├── 11_admin_dashboard.png
+│       ├── 12_admin_user_directory.png
+│       ├── 13_admin_ecoguard_audit.png
+│       └── 14_admin_manage_quests.png
 ├── lib/                          # Backend & AI Engine Modules
 │   ├── ai/                       # AI Hotspot, Persona, Vision, Recommendations, Report, & Chat
-│   │   ├── hotspot.ts
-│   │   ├── persona.ts
-│   │   ├── recommendations.ts
-│   │   ├── vision.ts
-│   │   ├── weeklyReport.ts
-│   │   └── llm.ts
 │   ├── carbon/                   # Carbon calculator & emission factor engine
-│   │   ├── calculator.ts
-│   │   ├── engine.ts
-│   │   └── hotspot.ts
 │   ├── verification/             # EcoGuard Anti-Cheat & CV simulation
-│   │   └── ecoGuard.ts
-│   ├── gamification/             # XP, level tiers, & leaderboard logic
-│   └── supabase/                 # Supabase DB Auth & schema definitions
+│   └── gamification/             # XP, level tiers, & leaderboard logic
 ├── app/                          # Next.js Application Route Pages
 ├── components/                   # Reusable UI Components
 ├── data/                         # Quest, badge, reward, & emission datasets
 ├── index.html                    # 100% Self-contained Single-Page Application
 ├── server.ps1                    # Local PowerShell HTTP Web Server
-└── README.md                     # Project Overview & Visual Showcase
+└── README.md                     # Project Overview, Video & Visual Showcase
 ```
 
 ---
