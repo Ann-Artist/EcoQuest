@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { AgeGroup } from '../../../types';
+import { AgeGroup } from '@/types';
 
 interface AgeGroupPageProps {
   onNext: (ageGroup: AgeGroup) => void;

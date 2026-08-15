@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { UserProfile, CarbonResult, Quest, UserQuestState, ProofSubmission } from '../../types';
+import { UserProfile, CarbonResult, Quest, UserQuestState, ProofSubmission } from '@/types';
 import { HeroCanopyCard } from '../../components/dashboard/HeroCanopyCard';
 import { QuestCard } from '../../components/quests/QuestCard';
 import { GlassCard } from '../../components/ui/GlassCard';

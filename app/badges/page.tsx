@@ -1,5 +1,5 @@
 import React from 'react';
-import { UserProfile, Badge } from '../../types';
+import { UserProfile, Badge } from '@/types';
 import { GlassCard } from '../../components/ui/GlassCard';
 import badgesData from '../../data/badges.json';
 

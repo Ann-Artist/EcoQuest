@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { UserProfile, Quest, ProofSubmission, CarbonCategory, VerificationType } from '../../types';
+import { UserProfile, Quest, ProofSubmission, CarbonCategory, VerificationType } from '@/types';
 import { GlassCard } from '../../components/ui/GlassCard';
 import { saveCustomQuest, saveProofSubmissions } from '../../lib/storage';
 

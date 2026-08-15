@@ -1,5 +1,5 @@
 import React from 'react';
-import { UserProfile } from '../../types';
+import { UserProfile } from '@/types';
 import { ProgressionTree } from '../../components/gamification/ProgressionTree';
 import { GlassCard } from '../../components/ui/GlassCard';
 

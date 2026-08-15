@@ -1,5 +1,5 @@
 import React from 'react';
-import { CarbonResult, UserProfile } from '../../../types';
+import { CarbonResult, UserProfile } from '@/types';
 import { GlassCard } from '../../../components/ui/GlassCard';
 
 interface ResultPageProps {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { UserProfile, CarbonResult } from '../../types';
+import { UserProfile, CarbonResult } from '@/types';
 import { GlassCard } from '../../components/ui/GlassCard';
 import { generateWeeklyReport } from '../../lib/ai/advisor';
 import { formatCO2 } from '../../lib/utils/formatters';

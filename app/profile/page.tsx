@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { UserProfile, LifestyleInputs, PuneWard } from '../../types';
+import { UserProfile, LifestyleInputs, PuneWard } from '@/types';
 import { getStoredLifestyleInputs, saveLifestyleInputs, saveUserProfile } from '../../lib/storage';
 import { GlassCard } from '../../components/ui/GlassCard';
 

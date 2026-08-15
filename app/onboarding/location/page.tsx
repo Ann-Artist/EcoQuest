@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { PuneWard } from '../../../types';
+import { PuneWard } from '@/types';
 
 interface LocationPageProps {
   onNext: (ward: PuneWard) => void;

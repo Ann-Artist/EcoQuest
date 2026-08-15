@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { LifestyleInputs } from '../../../types';
+import { LifestyleInputs } from '@/types';
 
 interface LifestylePageProps {
   initialInputs: LifestyleInputs;

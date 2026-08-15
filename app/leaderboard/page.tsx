@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { UserProfile } from '../../types';
+import { UserProfile } from '@/types';
 import { getPuneLeaderboard } from '../../lib/gamification/leaderboard';
 import { GlassCard } from '../../components/ui/GlassCard';
 import { ShareCardCanvas } from '../../components/leaderboard/ShareCardCanvas';

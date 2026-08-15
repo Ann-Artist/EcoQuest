@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Quest, UserQuestState, ProofSubmission, UserProfile } from '../../../types';
+import { Quest, UserQuestState, ProofSubmission, UserProfile } from '@/types';
 import { GlassCard } from '../../../components/ui/GlassCard';
 import { VerificationModal } from '../../../components/quests/VerificationModal';
 import { awardQuestCompletion } from '../../../lib/gamification/xp';

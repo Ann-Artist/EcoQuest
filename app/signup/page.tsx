@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { registerDatabaseUser } from '../../lib/supabase/auth';
-import { PuneWard, AgeGroup } from '../../types';
+import { PuneWard, AgeGroup } from '@/types';
 
 interface SignupPageProps {
   onNavigate: (path: string) => void;
