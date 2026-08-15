@@ -348,6 +348,67 @@ function handleAIChatSubmit(e) {
   }, 400);
 }
 
+// ─── Real-Time Daily Streak Engine ───
+function getLocalDateString(d = new Date()) {
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+function syncRealtimeStreak(user) {
+  if (!user) return user;
+
+  const todayStr = getLocalDateString();
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  const yesterdayStr = getLocalDateString(yesterday);
+
+  let currentStreak = user.streak || 0;
+  const lastActive = user.lastActiveDate || null;
+
+  if (lastActive) {
+    if (lastActive === todayStr) {
+      // Completed action today -> streak is active and intact
+    } else if (lastActive === yesterdayStr) {
+      // Completed action yesterday -> streak is preserved awaiting today's completion
+    } else {
+      // Inactive for 2 or more days -> streak resets to 0 until new activity today
+      currentStreak = 0;
+    }
+  }
+
+  return {
+    ...user,
+    streak: currentStreak
+  };
+}
+
+function computeNextStreakOnCompletion(user) {
+  const todayStr = getLocalDateString();
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+  const yesterdayStr = getLocalDateString(yesterday);
+
+  let newStreak = user.streak || 0;
+  const lastActive = user.lastActiveDate;
+
+  if (!lastActive) {
+    newStreak = 1;
+  } else if (lastActive === todayStr) {
+    newStreak = Math.max(1, newStreak);
+  } else if (lastActive === yesterdayStr) {
+    newStreak = newStreak + 1;
+  } else {
+    newStreak = 1;
+  }
+
+  return {
+    streak: newStreak,
+    lastActiveDate: todayStr
+  };
+}
+
 function setState(updater) {
   state = { ...state, ...updater };
   render();
@@ -365,7 +426,7 @@ function updateUser(updated) {
 // ─── UI Rendering Engine ───
 function render() {
   const app = document.getElementById('app');
-  const u = state.user;
+  const u = syncRealtimeStreak(state.user);
   const p = state.currentPath;
 
   // Unauthenticated or Public Pages
@@ -1441,12 +1502,15 @@ function confirmQuestCompletion(qId) {
   const newXP = u.xp + q.xp;
   const newLvl = getLevelInfo(newXP);
 
+  const streakData = computeNextStreakOnCompletion(u);
+
   const updated = {
     ...u,
     xp: newXP,
     level: newLvl.level,
     levelTitle: newLvl.title,
-    streak: u.streak + 1,
+    streak: streakData.streak,
+    lastActiveDate: streakData.lastActiveDate,
     completedCount: u.completedCount + 1,
     co2Avoided: parseFloat((u.co2Avoided + q.co2).toFixed(1))
   };
