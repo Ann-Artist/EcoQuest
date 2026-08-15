@@ -171,12 +171,21 @@ const REWARDS = [
   { id:'r3', title:'MahaMetro Eco Commuter Points', sponsor:'MahaMetro Pune', reqXP:750, reward:'Pune Metro Card 50 Bonus Points' },
 ];
 
+const CHARACTERS = [
+  { id: 'verda', name: 'VERDA', slogan: 'Nurture nature, inspire change.', src: 'avatars/verda.png', color: '#6bfb9a' },
+  { id: 'lumia', name: 'LUMIA', slogan: 'Small choices, big impact.', src: 'avatars/lumia.png', color: '#c084fc' },
+  { id: 'aqua', name: 'AQUA', slogan: 'Every drop counts.', src: 'avatars/aqua.png', color: '#60a5fa' },
+  { id: 'solina', name: 'SOLINA', slogan: 'Powered by the sun, driven by hope.', src: 'avatars/solina.png', color: '#ffd23f' },
+  { id: 'eco', name: 'ECO', slogan: 'Live green, leave better.', src: 'avatars/eco.png', color: '#4ade80' },
+  { id: 'nova', name: 'NOVA', slogan: 'Be the change. Start today.', src: 'avatars/nova.png', color: '#f472b6' }
+];
+
 const LEADERBOARD = [
-  { rank:1, name:'Priya Mehta', ward:'Viman Nagar', xp:2840, level:6, avatar:'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&auto=format&fit=crop' },
-  { rank:2, name:'Rohan Joshi', ward:'Baner / Balewadi', xp:2650, level:5, avatar:'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&auto=format&fit=crop' },
-  { rank:3, name:'Ananya Kulkarni', ward:'Deccan', xp:2420, level:5, avatar:'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&auto=format&fit=crop' },
-  { rank:4, name:'Dev Patil', ward:'Hinjewadi', xp:2180, level:4, avatar:'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&auto=format&fit=crop' },
-  { rank:5, name:'Sneha Desai', ward:'Kothrud', xp:1920, level:4, avatar:'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=80&auto=format&fit=crop' },
+  { rank:1, name:'Priya Mehta', ward:'Viman Nagar', xp:2840, level:6, avatar:'avatars/nova.png' },
+  { rank:2, name:'Rohan Joshi', ward:'Baner / Balewadi', xp:2650, level:5, avatar:'avatars/verda.png' },
+  { rank:3, name:'Ananya Kulkarni', ward:'Deccan', xp:2420, level:5, avatar:'avatars/solina.png' },
+  { rank:4, name:'Dev Patil', ward:'Hinjewadi', xp:2180, level:4, avatar:'avatars/aqua.png' },
+  { rank:5, name:'Sneha Desai', ward:'Kothrud', xp:1920, level:4, avatar:'avatars/lumia.png' },
 ];
 
 // ─── State Management ───
@@ -188,7 +197,7 @@ function getDB() {
     db.push({
       id: 'usr_demo', name: 'Aarav Sharma', email: 'aarav.sharma@pune.edu.in', password: 'aarav2026', ward: 'Kothrud', role: 'user',
       xp: 0, level: 1, levelTitle: 'Eco Seedling', streak: 0, completedCount: 0, co2Avoided: 0, persona: 'Eco Beginner',
-      avatar: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80'
+      avatar: 'avatars/eco.png'
     });
   }
   
@@ -196,7 +205,7 @@ function getDB() {
     db.push({
       id: 'usr_admin_ann', name: 'PMC Admin Ann', email: 'ann@gmail.com', password: 'Ann@2026', ward: 'PMC Headquarters', role: 'admin',
       xp: 9999, level: 6, levelTitle: 'Planet Champion', streak: 100, completedCount: 50, co2Avoided: 500, persona: 'PMC Admin Director',
-      avatar: 'https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80'
+      avatar: 'avatars/lumia.png'
     });
   }
 
@@ -1022,14 +1031,6 @@ function renderRouteView(path) {
 
   if (path === '/profile') {
     const l = state.lifestyle;
-    const avatars = [
-      'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
-      'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150&auto=format&fit=crop&q=80',
-      'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80',
-      'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80',
-      'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80',
-      'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150&auto=format&fit=crop&q=80'
-    ];
 
     return `
       <div style="max-width:720px">
@@ -1042,18 +1043,30 @@ function renderRouteView(path) {
         <form onsubmit="handleSaveFullProfile(event)" style="display:flex;flex-direction:column;gap:24px">
           <!-- Avatar Selection Section -->
           <div class="glass" style="padding:24px">
-            <h3 style="font-size:16px;font-weight:700;color:#fff;margin-bottom:14px;display:flex;align-items:center;gap:8px">
-              <span class="material-symbols-outlined" style="color:#6bfb9a">account_circle</span> Choose Profile Avatar
+            <h3 style="font-size:16px;font-weight:700;color:#fff;margin-bottom:6px;display:flex;align-items:center;gap:8px">
+              <span class="material-symbols-outlined" style="color:#6bfb9a">face</span> EcoQuest Character Avatars
             </h3>
-            <div style="display:flex;gap:14px;flex-wrap:wrap;margin-bottom:14px;align-items:center">
-              ${avatars.map(av => `
-                <img src="${av}" onclick="selectProfileAvatar('${av}')" 
-                  style="width:54px;height:54px;border-radius:50%;object-fit:cover;cursor:pointer;transition:all 0.2s;border:3px solid ${u.avatar===av?'#6bfb9a':'transparent'};box-shadow:${u.avatar===av?'0 0 16px rgba(107,251,154,0.4)':'none'}"/>
-              `).join('')}
+            <p style="font-size:12px;color:#bccabb;margin-bottom:16px">Select your official EcoQuest character avatar</p>
+            
+            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px;margin-bottom:18px">
+              ${CHARACTERS.map(av => {
+                const isSelected = u.avatar === av.src;
+                return `
+                  <div onclick="selectProfileAvatar('${av.src}')" 
+                    style="padding:14px;border-radius:14px;cursor:pointer;transition:all 0.2s;text-align:center;
+                      background:${isSelected ? 'rgba(107,251,154,0.1)' : 'rgba(255,255,255,0.03)'};
+                      border:2px solid ${isSelected ? '#6bfb9a' : 'rgba(255,255,255,0.08)'};
+                      box-shadow:${isSelected ? '0 0 20px rgba(107,251,154,0.25)' : 'none'}">
+                    <img src="${av.src}" style="width:72px;height:72px;border-radius:50%;object-fit:cover;margin:0 auto 8px;border:3px solid ${av.color}"/>
+                    <div style="font-weight:800;color:#fff;font-size:14px;margin-bottom:2px">${av.name}</div>
+                    <div style="font-size:11px;color:#bccabb;line-height:1.3">"${av.slogan}"</div>
+                  </div>
+                `;
+              }).join('')}
             </div>
             <div>
               <label>CUSTOM AVATAR IMAGE URL</label>
-              <input id="prof-avatar" value="${u.avatar || ''}" onchange="selectProfileAvatar(this.value)" placeholder="https://..."/>
+              <input id="prof-avatar" value="${u.avatar || ''}" onchange="selectProfileAvatar(this.value)" placeholder="avatars/verda.png"/>
             </div>
           </div>
 
