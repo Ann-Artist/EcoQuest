@@ -181,5 +181,5 @@ Simply double-click or open `index.html` directly in any modern browser!
 - **`backend`**: AI Engine modules, Carbon engine, Supabase auth schemas, and EcoGuard anti-cheat rules.
 
 ---
-
+**EcoQuest — Play Green. Live Better.** 🌍
 
