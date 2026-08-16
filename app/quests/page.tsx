@@ -125,6 +125,7 @@ export const QuestsPage: React.FC<QuestsPageProps> = ({
             <option value="Daily">Daily</option>
             <option value="Weekly">Weekly</option>
             <option value="Monthly">Monthly</option>
+            <option value="Special">Special / Milestone</option>
           </select>
         </div>
       </div>

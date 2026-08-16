@@ -182,27 +182,60 @@ export function saveUserProfile(profile: UserProfile): void {
   }
 }
 
-export function getStoredQuestStates(): Record<string, UserQuestState> {
-  if (typeof window === 'undefined') return {};
-  const raw = localStorage.getItem(STORAGE_KEYS.USER_QUEST_STATES);
-  return raw ? JSON.parse(raw) : {};
+export function getUserQuestStateKey(userId?: string): string {
+  const uid = userId || getStoredUserProfile()?.id || 'default_user';
+  return `${STORAGE_KEYS.USER_QUEST_STATES}_${uid}`;
 }
 
-export function saveQuestStates(states: Record<string, UserQuestState>): void {
+export function getStoredQuestStates(userId?: string): Record<string, UserQuestState> {
+  if (typeof window === 'undefined') return {};
+  const key = getUserQuestStateKey(userId);
+  const raw = localStorage.getItem(key);
+  const states: Record<string, UserQuestState> = raw ? JSON.parse(raw) : {};
+
+  // Check for daily quest resets across days
+  const todayStr = new Date().toISOString().split('T')[0];
+  let changed = false;
+
+  const allQ = getAllQuests();
+  allQ.forEach((q) => {
+    if (q.duration === 'Daily' && states[q.id]?.status === 'completed') {
+      const completedDate = states[q.id]?.completedAt ? states[q.id].completedAt!.split('T')[0] : '';
+      if (completedDate && completedDate !== todayStr) {
+        // Daily quest from a previous day -> reset to available for today's fresh cycle
+        delete states[q.id];
+        changed = true;
+      }
+    }
+  });
+
+  if (changed) {
+    saveQuestStates(states, userId);
+  }
+
+  return states;
+}
+
+export function saveQuestStates(states: Record<string, UserQuestState>, userId?: string): void {
   if (typeof window !== 'undefined') {
-    localStorage.setItem(STORAGE_KEYS.USER_QUEST_STATES, JSON.stringify(states));
+    const key = getUserQuestStateKey(userId);
+    localStorage.setItem(key, JSON.stringify(states));
   }
 }
 
-export function getStoredProofSubmissions(): ProofSubmission[] {
+export function getStoredProofSubmissions(userId?: string): ProofSubmission[] {
   if (typeof window === 'undefined') return [];
-  const raw = localStorage.getItem(STORAGE_KEYS.PROOF_SUBMISSIONS);
+  const uid = userId || getStoredUserProfile()?.id || 'default_user';
+  const key = `${STORAGE_KEYS.PROOF_SUBMISSIONS}_${uid}`;
+  const raw = localStorage.getItem(key);
   return raw ? JSON.parse(raw) : [];
 }
 
-export function saveProofSubmissions(submissions: ProofSubmission[]): void {
+export function saveProofSubmissions(submissions: ProofSubmission[], userId?: string): void {
   if (typeof window !== 'undefined') {
-    localStorage.setItem(STORAGE_KEYS.PROOF_SUBMISSIONS, JSON.stringify(submissions));
+    const uid = userId || getStoredUserProfile()?.id || 'default_user';
+    const key = `${STORAGE_KEYS.PROOF_SUBMISSIONS}_${uid}`;
+    localStorage.setItem(key, JSON.stringify(submissions));
   }
 }
 

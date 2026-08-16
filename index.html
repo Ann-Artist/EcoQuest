@@ -133,7 +133,7 @@
 
 <script>
 // ─── Data & Constants ───
-const SK = { DB: 'eq_db_v3', SESSION: 'eq_session_v3', QUESTS: 'eq_quests_v3', LIFESTYLE: 'eq_lifestyle_v3' };
+const SK = { DB: 'eq_db_v4', SESSION: 'eq_session_v4', LIFESTYLE: 'eq_lifestyle_v4' };
 
 const LEVEL_TIERS = [
   { level:1, title:'Eco Seedling', minXP:0, color:'#6bfb9a' },
@@ -145,15 +145,31 @@ const LEVEL_TIERS = [
 ];
 
 const QUESTS = [
-  { id:'q1', title:'Green Commute Challenge', category:'transportation', icon:'directions_bus', xp:100, co2:4.5, type:'L2 GPS', desc:'Log 3 public transport trips (PMPML Bus or Pune Metro) or cycling/walking this week.', proof:'GPS route log or Metro/PMPML e-ticket screenshot.' },
-  { id:'q2', title:'Power Saver Sprint', category:'electricity', icon:'lightbulb', xp:30, co2:1.2, type:'L1 Self', desc:'Switch off all standby electronics and unused lights before leaving every room today.', proof:'Self-confirm after 9 PM tonight.' },
-  { id:'q3', title:'Waste Segregation Master', category:'waste', icon:'delete_sweep', xp:50, co2:2.0, type:'L3 Photo', desc:'Segregate wet organic from dry recyclable waste for 3 consecutive days.', proof:'Photo of segregated home waste bins.' },
-  { id:'q4', title:'Pune Urban Tree Care', category:'greenery', icon:'forest', xp:100, co2:5.0, type:'L3 Photo', desc:'Plant a native sapling or water an existing tree in your area or balcony.', proof:'Geotagged photo of sapling planting or watering.' },
-  { id:'q5', title:'Veg Meal Day', category:'food', icon:'restaurant', xp:70, co2:3.2, type:'L1 Self', desc:'Choose a fully vegetarian meal for every meal today.', proof:'Self-confirm at end of day.' },
-  { id:'q6', title:'Cold Shower Challenge', category:'electricity', icon:'shower', xp:20, co2:0.8, type:'L1 Self', desc:'Take a cold shower this morning to reduce water heating energy.', proof:'Self-report.' },
-  { id:'q7', title:'Zero Plastic Day', category:'waste', icon:'block', xp:60, co2:2.5, type:'L3 Photo', desc:'Go the entire day without using any single-use plastic items.', proof:'Photo of reusable bag/bottle used.' },
-  { id:'q8', title:'Cycle to Work/College', category:'transportation', icon:'directions_bike', xp:80, co2:3.8, type:'L2 GPS', desc:'Ride a bicycle for your daily commute today.', proof:'GPS cycle route log.' },
-  { id:'q9', title:'Home Energy Audit', category:'electricity', icon:'energy_savings_leaf', xp:40, co2:1.5, type:'L1 Self', desc:'Audit 3 appliances at home consuming excess standby energy.', proof:'Self-confirm.' },
+  // ─── DAILY QUESTS (Refreshes Fresh Every Day) ───
+  { id:'q_d1', title:'PMPML / Metro Commute Sprint', category:'transportation', duration:'Daily', icon:'directions_bus', xp:80, co2:3.5, type:'L2 GPS', desc:'Log 1 public transit ride on Pune Metro or PMPML electric bus today instead of a private petrol vehicle.', proof:'Metro QR ticket / PMPML e-ticket screenshot or GPS route trace.' },
+  { id:'q_d2', title:'Power Saver Sprint', category:'electricity', duration:'Daily', icon:'lightbulb', xp:30, co2:1.2, type:'L1 Self', desc:'Switch off all standby electronics, ACs, and unused lights before leaving rooms today.', proof:'Self-report confirmation before 10 PM tonight.' },
+  { id:'q_d3', title:'Plant-Based Feast Day', category:'food', duration:'Daily', icon:'restaurant', xp:40, co2:2.8, type:'L1 Self', desc:'Choose 100% plant-based vegetarian or vegan meals for an entire day to cut dietary emissions.', proof:'Self-confirm meal log at dinner.' },
+  { id:'q_d4', title:'Zero Plastic Bag Day', category:'shopping', duration:'Daily', icon:'shopping_bag', xp:35, co2:1.1, type:'L3 Photo', desc:'Carry your own reusable cloth bag and refuse single-use plastic bags in Pune markets today.', proof:'Photo of cloth tote bag used during shopping.' },
+  { id:'q_d5', title:'Eco Cold Shower', category:'electricity', duration:'Daily', icon:'shower', xp:25, co2:0.8, type:'L1 Self', desc:'Take a short cold water shower this morning to reduce water geyser power consumption.', proof:'Self-report confirmation.' },
+  { id:'q_d6', title:'Phantom Power Purge', category:'electricity', duration:'Daily', icon:'power_off', xp:30, co2:1.0, type:'L1 Self', desc:'Unplug laptop chargers, TV consoles, and microwave standby plugs before going to bed tonight.', proof:'Self-confirm before bedtime.' },
+  { id:'q_d7', title:'Balcony & Pollinator Care', category:'greenery', duration:'Daily', icon:'nest_cam_floodlight', xp:35, co2:1.2, type:'L3 Photo', desc:'Water balcony plants and place a shallow fresh water bowl for Pune urban birds & pollinators.', proof:'Photo of watered plants or bird water bowl.' },
+  { id:'q_d8', title:'Local Pune Mandi Sourcing', category:'food', duration:'Daily', icon:'shopping_basket', xp:45, co2:1.8, type:'L3 Photo', desc:'Buy fresh seasonal vegetables/fruits directly from a local Pune farmers market or vendor.', proof:'Photo of fresh local market produce.' },
+
+  // ─── WEEKLY CHALLENGES ───
+  { id:'q_w1', title:'Green Commute Master', category:'transportation', duration:'Weekly', icon:'commute', xp:120, co2:5.5, type:'L2 GPS', desc:'Complete at least 5 public transit or walking/cycling commute trips across Pune this week.', proof:'GPS trip log or Metro/PMPML tickets.' },
+  { id:'q_w2', title:'Waste Segregation Champion', category:'waste', duration:'Weekly', icon:'delete_sweep', xp:90, co2:4.0, type:'L3 Photo', desc:'Properly segregate wet organic and dry recyclable waste at home for 5 consecutive days.', proof:'Photo of segregated green & blue home bins.' },
+  { id:'q_w3', title:'Pune Cyclist Sprint (15 km)', category:'transportation', duration:'Weekly', icon:'directions_bike', xp:110, co2:5.0, type:'L2 GPS', desc:'Ride a bicycle for 15+ km total distance across Pune streets this week.', proof:'GPS cycling activity log.' },
+  { id:'q_w4', title:'Zero Food Waste Week', category:'food', duration:'Weekly', icon:'soup_kitchen', xp:100, co2:4.2, type:'L1 Self', desc:'Plan meals and repurpose leftovers to ensure zero edible food is thrown into the garbage all week.', proof:'Weekly food log confirmation.' },
+  { id:'q_w5', title:'Pune Neighborhood Litter Cleanup', category:'waste', duration:'Weekly', icon:'cleaning_services', xp:130, co2:5.0, type:'L3 Photo', desc:'Spend 30 minutes cleaning up plastic litter in your street, society, or local Pune park.', proof:'Photo of collected litter bag.' },
+  { id:'q_w6', title:'Home Vampire Power Audit', category:'electricity', duration:'Weekly', icon:'energy_savings_leaf', xp:80, co2:3.5, type:'L1 Self', desc:'Audit 5 home electrical appliances and eliminate phantom standby power leakage.', proof:'Self-audit completion summary.' },
+
+  // ─── MILESTONE & SPECIAL QUESTS ───
+  { id:'q_s1', title:'Plant a Native Pune Tree', category:'greenery', duration:'Special', icon:'forest', xp:200, co2:12.0, type:'L3 Photo', desc:'Plant and care for a native Pune sapling (Neem, Peepal, Banyan, Karanj) in a park or balcony.', proof:'Geotagged photo with sapling tree guard.' },
+  { id:'q_s2', title:'Home Organic Composter Setup', category:'waste', duration:'Special', icon:'compost', xp:180, co2:8.5, type:'L3 Photo', desc:'Set up a wet waste composting pot or bokashi bin to convert kitchen scraps into organic compost.', proof:'Photo of active home composting pot.' },
+  { id:'q_s3', title:'Rooftop Solar & LED Overhaul', category:'electricity', duration:'Special', icon:'solar_power', xp:250, co2:16.0, type:'L3 Photo', desc:'Replace household incandescent/CFL bulbs with high-efficiency LEDs or install solar panels.', proof:'Photo of LED retrofit or rooftop solar.' },
+  { id:'q_s4', title:'Electric Vehicle / E-Cycle Shift', category:'transportation', duration:'Special', icon:'electric_scooter', xp:220, co2:10.0, type:'L2 GPS', desc:'Switch your primary local neighborhood commute to an Electric Scooter or E-Bicycle.', proof:'GPS route log of EV ride.' },
+  { id:'q_s5', title:'Pune Riverbed Eco Volunteer', category:'greenery', duration:'Special', icon:'park', xp:240, co2:11.0, type:'L3 Photo', desc:'Join a Mula-Mutha riverbed or tekdi ecological restoration & cleanup drive in Pune.', proof:'Photo proof of participation.' },
+  { id:'q_s6', title:'Zero-Waste Thrift & Repair', category:'shopping', duration:'Special', icon:'handyman', xp:150, co2:6.5, type:'L3 Photo', desc:'Repair or mend 3 household or clothing items instead of buying new disposable goods.', proof:'Photo of repaired items.' },
 ];
 
 const BADGES = [
@@ -188,7 +204,24 @@ const LEADERBOARD = [
   { rank:5, name:'Sneha Desai', ward:'Kothrud', xp:1920, level:4, avatar:'avatars/lumia.png' },
 ];
 
-// ─── State Management ───
+// ─── Helpers: Time & Date ───
+function getLocalDateString(d = new Date()) {
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${year}-${month}-${day}`;
+}
+
+function getTimeUntilMidnightString() {
+  const now = new Date();
+  const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
+  const diffMs = midnight - now;
+  const hours = Math.floor(diffMs / (1000 * 60 * 60));
+  const mins = Math.floor((diffMs % (1000 * 60 * 60)) / (1000 * 60));
+  return `${hours}h ${mins}m`;
+}
+
+// ─── State Management (Strictly User-Scoped) ───
 function getDB() {
   const r = localStorage.getItem(SK.DB);
   let db = r ? JSON.parse(r) : [];
@@ -224,8 +257,63 @@ function saveDB(db) { localStorage.setItem(SK.DB, JSON.stringify(db)); }
 function getSession() { const r = localStorage.getItem(SK.SESSION); return r?JSON.parse(r):null; }
 function saveSession(u) { localStorage.setItem(SK.SESSION, JSON.stringify(u)); }
 function clearSession() { localStorage.removeItem(SK.SESSION); }
-function getDoneQuests() { const r = localStorage.getItem(SK.QUESTS); return r?JSON.parse(r):[]; }
-function saveDoneQuests(q) { localStorage.setItem(SK.QUESTS, JSON.stringify(q)); }
+
+function getUserDoneQuestsKey(userId) {
+  const uid = userId || state?.user?.id || 'guest_user';
+  return `eq_done_quests_v4_${uid}`;
+}
+
+function getDoneQuests(userId) {
+  if (typeof localStorage === 'undefined') return [];
+  const key = getUserDoneQuestsKey(userId);
+  const r = localStorage.getItem(key);
+  if (!r) return [];
+  try {
+    const parsed = JSON.parse(r);
+    return Array.isArray(parsed) ? parsed : [];
+  } catch (e) {
+    return [];
+  }
+}
+
+function saveDoneQuests(userId, qList) {
+  if (typeof localStorage === 'undefined') return;
+  const key = getUserDoneQuestsKey(userId);
+  localStorage.setItem(key, JSON.stringify(qList));
+}
+
+function isQuestDoneForUser(q, doneQuests) {
+  if (!doneQuests || !Array.isArray(doneQuests)) return false;
+  const todayStr = getLocalDateString();
+
+  const found = doneQuests.find(d => {
+    if (typeof d === 'string') return d === q.id;
+    return d.questId === q.id;
+  });
+
+  if (!found) return false;
+
+  // Legacy string format
+  if (typeof found === 'string') {
+    return true;
+  }
+
+  // Daily quest is ONLY completed if completed TODAY! (Resets fresh every day)
+  if (q.duration === 'Daily') {
+    return found.date === todayStr;
+  }
+
+  // Weekly quest: completed if within last 7 days
+  if (q.duration === 'Weekly') {
+    const compDate = new Date(found.completedAt || found.date);
+    const diffDays = (new Date().getTime() - compDate.getTime()) / (1000 * 3600 * 24);
+    return diffDays < 7;
+  }
+
+  // Milestone / Special: permanently completed
+  return true;
+}
+
 function getLifestyle() {
   const r = localStorage.getItem(SK.LIFESTYLE);
   return r?JSON.parse(r):{ carKm:45, bikeKm:30, busTr:6, metroTr:4, walkKm:8, kwh:190, diet:'balanced', segregates:true };
@@ -254,12 +342,16 @@ function getLevelInfo(xp) {
 }
 
 // Global App State
+const initialSession = getSession();
 let state = {
-  user: getSession(),
-  currentPath: getSession() ? (getSession().role==='admin' ? '/admin' : '/dashboard') : '/',
+  user: initialSession,
+  currentPath: initialSession ? (initialSession.role==='admin' ? '/admin' : '/dashboard') : '/',
   onboardingStep: 1,
   lifestyle: getLifestyle(),
-  doneQuests: getDoneQuests(),
+  doneQuests: getDoneQuests(initialSession?.id),
+  questFilterDuration: 'all', // 'all' | 'Daily' | 'Weekly' | 'Special'
+  questFilterCategory: 'all', // 'all' | 'transportation' | 'electricity' | 'waste' | 'food' | 'greenery' | 'shopping'
+  questFilterStatus: 'all',   // 'all' | 'available' | 'completed'
   activeQuestModal: null,
   levelUpModal: null,
   loginRole: 'user', // 'user' | 'admin'
@@ -298,20 +390,21 @@ function getAIGreenPersona(res, count) {
 }
 
 function getAIQuestAlternatives(rejectedQuest) {
-  if (rejectedQuest.category === 'transportation') {
-    return QUESTS.filter(q => q.id === 'q1' || q.id === 'q2');
-  } else if (rejectedQuest.category === 'electricity') {
-    return QUESTS.filter(q => q.id === 'q6' || q.id === 'q9');
-  }
-  return QUESTS.filter(q => q.id === 'q5' || q.id === 'q2');
+  const sameCat = QUESTS.filter(q => q.category === rejectedQuest.category && q.id !== rejectedQuest.id);
+  if (sameCat.length >= 2) return sameCat.slice(0, 2);
+  const others = QUESTS.filter(q => q.id !== rejectedQuest.id);
+  return [...sameCat, ...others].slice(0, 2);
 }
 
 function getAIVisionVerification(quest) {
   const confidence = Math.floor(Math.random() * 8) + 92; // 92-99%
-  let objects = ['Sustainable Eco Activity', 'Authentic Proof'];
-  if (quest.id === 'q3') objects = ['Wet Organic Bin', 'Dry Recyclable Bin', 'Segregated Waste'];
-  if (quest.id === 'q4') objects = ['Native Sapling', 'Soil', 'Water Can', 'Pune Geotag'];
-  if (quest.id === 'q7') objects = ['Cloth Tote Bag', 'Reusable Bottle', 'No Plastic'];
+  let objects = ['Sustainable Eco Action', 'Pune Geotag Detected'];
+  if (quest.category === 'transportation') objects = ['Public Transit Corridor', 'Metro/PMPML E-Ticket', 'GPS Trace'];
+  else if (quest.category === 'electricity') objects = ['Energy Efficient Appliance', 'Power Standby Off', 'Verified Meter Reading'];
+  else if (quest.category === 'waste') objects = ['Wet Organic Bin', 'Dry Recyclable Bin', 'Segregated Waste'];
+  else if (quest.category === 'greenery') objects = ['Native Sapling', 'Balcony Flora', 'Water Container', 'Pune Soil'];
+  else if (quest.category === 'food') objects = ['Plant-Based Meal', 'Local Farm Produce', 'Zero Single-Use Packaging'];
+  else if (quest.category === 'shopping') objects = ['Cloth Tote Bag', 'Reusable Container', 'Eco Packaging'];
 
   return {
     confidence,
@@ -334,7 +427,7 @@ function handleAIChatSubmit(e) {
     let reply = `🌿 As your EcoQuest AI Assistant, I recommend focusing on your biggest emission hotspot in ${state.user?.ward || 'Pune'}. Try swapping 1 private vehicle ride for Pune public transport or completing a home energy audit today for bonus XP!`;
     const q = prompt.toLowerCase();
     if (q.includes('bus') || q.includes('metro') || q.includes('commute') || q.includes('transport')) {
-      reply = `🚌 Taking MahaMetro or PMPML electric buses across Pune reduces your trip carbon emissions by up to 80% compared to private petrol cars. Plus, you earn +100 EcoXP for logging commute quests!`;
+      reply = `🚌 Taking MahaMetro or PMPML electric buses across Pune reduces your trip carbon emissions by up to 80% compared to private petrol cars. Plus, you earn +80 EcoXP for logging commute quests!`;
     } else if (q.includes('waste') || q.includes('segregation') || q.includes('plastic')) {
       reply = `♻️ PMC (Pune Municipal Corporation) requires separating wet organic waste (green bin) from dry recyclables (blue bin). Segregating at home prevents methane production in landfills!`;
     } else if (q.includes('recipe') || q.includes('food') || q.includes('veg')) {
@@ -349,13 +442,6 @@ function handleAIChatSubmit(e) {
 }
 
 // ─── Real-Time Daily Streak Engine ───
-function getLocalDateString(d = new Date()) {
-  const year = d.getFullYear();
-  const month = String(d.getMonth() + 1).padStart(2, '0');
-  const day = String(d.getDate()).padStart(2, '0');
-  return `${year}-${month}-${day}`;
-}
-
 function syncRealtimeStreak(user) {
   if (!user) return user;
 
@@ -566,6 +652,7 @@ function navigate(path) {
 function handleLogout() {
   clearSession();
   state.user = null;
+  state.doneQuests = [];
   state.currentPath = '/';
   render();
 }
@@ -591,15 +678,15 @@ function renderLanding() {
       <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;margin-top:72px;text-align:left">
         ${[
           {icon:'monitoring',title:'Carbon Footprint Engine',desc:'AI-calculated CO₂e across 5 categories'},
-          {icon:'assignment',title:'Eco Quest System',desc:'Daily, weekly and special quests with 3 verification levels'},
+          {icon:'assignment',title:'Daily & Weekly Quests',desc:'Fresh rotating daily habits with 3 verification levels'},
           {icon:'leaderboard',title:'Pune Ward Leaderboard',desc:'Compete with citizens across Pune neighborhoods'},
           {icon:'military_tech',title:'Badges & Levels',desc:'6-tier progression from Eco Seedling to Planet Champion'},
           {icon:'workspace_premium',title:'PMC Rewards',desc:'Earn real PMC and Metro partner rewards'},
           {icon:'shield',title:'EcoGuard Anti-Cheat',desc:'AI verification prevents fake completions'},
         ].map(f=>`
           <div class="glass" style="padding:24px">
-            <span class="material-symbols-outlined" style="font-size:32px;color:#6bfb9a;margin-bottom:12px">${f.icon}</span>
-            <div style="font-weight:700;color:#fff;font-size:16px;margin-bottom:6px">${f.title}</div>
+            <span class="material-symbols-outlined" style="color:#6bfb9a;font-size:32px;margin-bottom:12px">${f.icon}</span>
+            <div style="font-weight:800;color:#fff;font-size:16px;margin-bottom:6px">${f.title}</div>
             <div style="font-size:13px;color:#bccabb;line-height:1.5">${f.desc}</div>
           </div>
         `).join('')}
@@ -612,18 +699,18 @@ function renderSignup() {
   return `
     <div style="display:flex;align-items:center;justify-content:center;padding:48px 20px">
       <div class="glass" style="width:100%;max-width:440px;padding:40px">
-        <div style="text-align:center;margin-bottom:28px">
-          <div style="width:52px;height:52px;border-radius:14px;background:rgba(107,251,154,0.12);display:flex;align-items:center;justify-content:center;margin:0 auto 14px">
-            <span class="material-symbols-outlined" style="color:#6bfb9a;font-size:28px">spa</span>
+        <div style="text-align:center;margin-bottom:24px">
+          <div style="width:48px;height:48px;border-radius:14px;background:rgba(107,251,154,0.12);display:flex;align-items:center;justify-content:center;margin:0 auto 12px">
+            <span class="material-symbols-outlined" style="color:#6bfb9a;font-size:28px">eco</span>
           </div>
-          <h2 style="font-size:24px;font-weight:800;color:#fff;margin-bottom:6px">Create Your Account</h2>
-          <p style="font-size:13px;color:#bccabb">Start from zero — Level 1 • 0 XP • Eco Seedling</p>
+          <h2 style="font-size:24px;font-weight:800;color:#fff;margin-bottom:4px">Create Pune Eco Account</h2>
+          <p style="font-size:13px;color:#bccabb">Begin your personal carbon tracking adventure</p>
         </div>
 
-        <form onsubmit="handleSignup(event)" style="display:flex;flex-direction:column;gap:16px">
-          <div><label>FULL NAME</label><input id="su-name" required placeholder="e.g. Aarav Sharma"/></div>
-          <div><label>EMAIL ADDRESS</label><input id="su-email" type="email" required placeholder="aarav@pune.edu.in"/></div>
-          <div><label>PASSWORD</label><input id="su-pass" type="password" required placeholder="Min 6 chars"/></div>
+        <form onsubmit="handleSignup(event)" style="display:flex;flex-direction:column;gap:14px">
+          <div><label>FULL NAME</label><input id="su-name" placeholder="e.g. Aarav Sharma" required/></div>
+          <div><label>EMAIL ADDRESS</label><input id="su-email" type="email" placeholder="aarav@pune.edu.in" required/></div>
+          <div><label>PASSWORD</label><input id="su-pass" type="password" placeholder="Create password" required/></div>
           <div>
             <label>PUNE WARD / AREA</label>
             <select id="su-ward">
@@ -660,6 +747,7 @@ function handleSignup(e) {
   saveDB(db);
   state.user = newUser;
   saveSession(newUser);
+  state.doneQuests = getDoneQuests(newUser.id); // Starts clean [] for new user
   state.onboardingStep = 1;
   navigate('/onboarding');
 }
@@ -739,6 +827,7 @@ function handleLogin(e) {
   }
   state.user = rec;
   saveSession(rec);
+  state.doneQuests = getDoneQuests(rec.id);
   if (rec.role === 'admin') {
     navigate('/admin');
   } else {
@@ -882,7 +971,6 @@ function finishLifestyle() {
 
 function renderRouteView(path) {
   const u = state.user;
-  const done = state.doneQuests;
 
   if (path === '/dashboard') {
     const res = calcCarbon(state.lifestyle);
@@ -891,6 +979,9 @@ function renderRouteView(path) {
     const lvl = getLevelInfo(u.xp);
     const nextLvl = LEVEL_TIERS[lvl.level] || lvl;
     const pct = Math.min(100, Math.round(((u.xp - lvl.minXP)/(nextLvl.minXP - lvl.minXP || 1))*100));
+
+    const dailyQuests = QUESTS.filter(q => q.duration === 'Daily');
+    const availableDaily = dailyQuests.filter(q => !isQuestDoneForUser(q, state.doneQuests));
 
     return `
       <div style="display:flex;flex-direction:column;gap:24px">
@@ -944,6 +1035,23 @@ function renderRouteView(path) {
           `).join('')}
         </div>
 
+        <!-- Today's Fresh Daily Quests Showcase -->
+        <div>
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;flex-wrap:wrap;gap:10px">
+            <div>
+              <div style="display:flex;align-items:center;gap:8px">
+                <span class="chip chip-green" style="font-size:11px">📅 Refreshes Daily</span>
+                <h2 style="font-size:20px;font-weight:800;color:#fff;margin:0">Today's Fresh Daily Quests (${availableDaily.length} Available)</h2>
+              </div>
+              <p style="font-size:12px;color:#bccabb;margin-top:2px">Complete your daily green actions to earn XP & maintain your ${u.streak}-day streak!</p>
+            </div>
+            <button class="btn btn-ghost" style="padding:6px 16px;font-size:12px" onclick="navigate('/quests')">View All Quests (${QUESTS.length}) →</button>
+          </div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px">
+            ${dailyQuests.slice(0,4).map(q=>renderQuestCard(q)).join('')}
+          </div>
+        </div>
+
         <!-- AI Weekly Sustainability Report Widget -->
         <div class="glass" style="padding:24px">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
@@ -966,32 +1074,126 @@ function renderRouteView(path) {
             🤖 <strong>AI Weekly Recommendation:</strong> Swap 2 weekly private car trips for MahaMetro or PMPML electric buses in ${u.ward||'Kothrud'} to maximize your next tier XP!
           </div>
         </div>
-
-        <!-- Personalized Quests Pool -->
-        <div>
-          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
-            <div>
-              <h2 style="font-size:20px;font-weight:800;color:#fff;margin-bottom:2px">Personalized Quest Recommendations</h2>
-              <p style="font-size:12px;color:#bccabb;margin:0">Adapted specifically for your ${hotspot.category} emission profile</p>
-            </div>
-            <button class="btn btn-ghost" style="padding:6px 16px;font-size:12px" onclick="navigate('/quests')">View All (${QUESTS.length})</button>
-          </div>
-          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px">
-            ${QUESTS.slice(0,3).map(q=>renderQuestCard(q)).join('')}
-          </div>
-        </div>
       </div>
     `;
   }
 
   if (path === '/quests') {
+    const todayFormatted = new Date().toLocaleDateString('en-IN', { weekday: 'long', month: 'short', day: 'numeric', year: 'numeric' });
+    const resetTime = getTimeUntilMidnightString();
+
+    const durationFilter = state.questFilterDuration || 'all';
+    const catFilter = state.questFilterCategory || 'all';
+    const statusFilter = state.questFilterStatus || 'all';
+
+    const dailyQuests = QUESTS.filter(q => q.duration === 'Daily');
+    const weeklyQuests = QUESTS.filter(q => q.duration === 'Weekly');
+    const specialQuests = QUESTS.filter(q => q.duration === 'Special');
+
+    const dailyAvailableCount = dailyQuests.filter(q => !isQuestDoneForUser(q, state.doneQuests)).length;
+    const allAvailableCount = QUESTS.filter(q => !isQuestDoneForUser(q, state.doneQuests)).length;
+    const completedCount = QUESTS.filter(q => isQuestDoneForUser(q, state.doneQuests)).length;
+
+    const filtered = QUESTS.filter(q => {
+      if (durationFilter !== 'all' && q.duration !== durationFilter) return false;
+      if (catFilter !== 'all' && q.category !== catFilter) return false;
+      const isDone = isQuestDoneForUser(q, state.doneQuests);
+      if (statusFilter === 'available' && isDone) return false;
+      if (statusFilter === 'completed' && !isDone) return false;
+      return true;
+    });
+
     return `
       <div>
-        <h1 style="font-size:28px;font-weight:800;color:#fff;margin-bottom:8px">Eco Quests Catalog</h1>
-        <p style="font-size:14px;color:#bccabb;margin-bottom:24px">Complete real-world sustainable actions to earn XP, level up, and unlock rewards.</p>
-        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px">
-          ${QUESTS.map(q=>renderQuestCard(q)).join('')}
+        <!-- Quest Hub Top Banner -->
+        <div class="glass-glow" style="padding:24px 28px;margin-bottom:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px">
+          <div>
+            <div style="display:flex;align-items:center;gap:10px;margin-bottom:6px">
+              <span class="material-symbols-outlined" style="color:#6bfb9a;font-size:28px">assignment</span>
+              <h1 style="font-size:26px;font-weight:800;color:#fff;margin:0">Sustainability Quests Hub</h1>
+            </div>
+            <p style="font-size:13px;color:#bccabb;margin:0">
+              Complete Pune-tailored daily habits, weekly challenges & milestone projects to earn EcoXP.
+            </p>
+          </div>
+
+          <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center">
+            <span class="chip chip-green" style="font-size:12px;padding:6px 12px">
+              📅 ${todayFormatted}
+            </span>
+            <span class="chip chip-gold" style="font-size:12px;padding:6px 12px" title="Daily quests pool resets at midnight with fresh challenges">
+              🔄 Resets in ${resetTime}
+            </span>
+          </div>
         </div>
+
+        <!-- Filter & Tab Navigation Controls -->
+        <div style="display:flex;flex-direction:column;gap:16px;margin-bottom:24px">
+          <!-- Duration Filter Tabs -->
+          <div style="display:flex;gap:8px;flex-wrap:wrap">
+            ${[
+              { id: 'all', label: `All Quests (${QUESTS.length})`, icon: 'apps' },
+              { id: 'Daily', label: `📅 Today's Fresh Daily (${dailyAvailableCount} Fresh)`, icon: 'today' },
+              { id: 'Weekly', label: `📆 Weekly Challenges (${weeklyQuests.length})`, icon: 'date_range' },
+              { id: 'Special', label: `🏆 Milestone Quests (${specialQuests.length})`, icon: 'emoji_events' }
+            ].map(tab => `
+              <button onclick="state.questFilterDuration='${tab.id}';render()" 
+                class="btn ${durationFilter === tab.id ? 'btn-primary' : 'btn-ghost'}" 
+                style="font-size:13px;padding:10px 18px;border-radius:12px">
+                ${tab.label}
+              </button>
+            `).join('')}
+          </div>
+
+          <!-- Secondary Filters Row (Category & Status) -->
+          <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;background:rgba(0,0,0,0.3);padding:12px 16px;border-radius:14px;border:1px solid rgba(255,255,255,0.06)">
+            <div style="display:flex;align-items:center;gap:8px;flex:1;min-width:200px">
+              <span class="material-symbols-outlined" style="font-size:18px;color:#bccabb">category</span>
+              <select onchange="state.questFilterCategory=this.value;render()" style="padding:8px 12px;font-size:13px">
+                <option value="all" ${catFilter === 'all' ? 'selected' : ''}>All Categories (${QUESTS.length})</option>
+                <option value="transportation" ${catFilter === 'transportation' ? 'selected' : ''}>🚗 Transportation</option>
+                <option value="electricity" ${catFilter === 'electricity' ? 'selected' : ''}>⚡ Electricity & Energy</option>
+                <option value="waste" ${catFilter === 'waste' ? 'selected' : ''}>♻️ Waste & Segregation</option>
+                <option value="food" ${catFilter === 'food' ? 'selected' : ''}>🥗 Food & Diet</option>
+                <option value="greenery" ${catFilter === 'greenery' ? 'selected' : ''}>🌳 Trees & Greenery</option>
+                <option value="shopping" ${catFilter === 'shopping' ? 'selected' : ''}>🛍️ Shopping & Living</option>
+              </select>
+            </div>
+
+            <div style="display:flex;align-items:center;gap:8px;flex:1;min-width:180px">
+              <span class="material-symbols-outlined" style="font-size:18px;color:#bccabb">filter_list</span>
+              <select onchange="state.questFilterStatus=this.value;render()" style="padding:8px 12px;font-size:13px">
+                <option value="all" ${statusFilter === 'all' ? 'selected' : ''}>All Statuses</option>
+                <option value="available" ${statusFilter === 'available' ? 'selected' : ''}>🟢 Fresh & Available (${allAvailableCount})</option>
+                <option value="completed" ${statusFilter === 'completed' ? 'selected' : ''}>✓ Completed (${completedCount})</option>
+              </select>
+            </div>
+
+            ${(durationFilter !== 'all' || catFilter !== 'all' || statusFilter !== 'all') ? `
+              <button onclick="state.questFilterDuration='all';state.questFilterCategory='all';state.questFilterStatus='all';render()" 
+                class="btn btn-ghost" style="font-size:12px;padding:8px 14px;color:#f87171">
+                ✕ Reset Filters
+              </button>
+            ` : ''}
+          </div>
+        </div>
+
+        <!-- Quests Grid -->
+        ${filtered.length === 0 ? `
+          <div class="glass" style="padding:48px 24px;text-align:center">
+            <span class="material-symbols-outlined" style="font-size:48px;color:#bccabb;margin-bottom:12px">search_off</span>
+            <h3 style="font-size:18px;font-weight:700;color:#fff;margin-bottom:6px">No quests found</h3>
+            <p style="font-size:13px;color:#bccabb;margin-bottom:16px">No quests match your selected duration or category filters.</p>
+            <button onclick="state.questFilterDuration='all';state.questFilterCategory='all';state.questFilterStatus='all';render()" 
+              class="btn btn-primary" style="font-size:13px;padding:10px 24px">
+              Show All Quests
+            </button>
+          </div>
+        ` : `
+          <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:20px">
+            ${filtered.map(q => renderQuestCard(q)).join('')}
+          </div>
+        `}
       </div>
     `;
   }
@@ -1261,7 +1463,7 @@ function renderRouteView(path) {
 
         <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin-bottom:24px">
           <div class="glass" style="padding:20px;text-align:center"><div class="mono" style="font-size:24px;color:#6bfb9a;font-weight:700">${db.length}</div><div style="font-size:12px;color:#bccabb;margin-top:4px">Registered Citizens</div></div>
-          <div class="glass" style="padding:20px;text-align:center"><div class="mono" style="font-size:24px;color:#ffd23f;font-weight:700">${QUESTS.length}</div><div style="font-size:12px;color:#bccabb;margin-top:4px">Active Quests</div></div>
+          <div class="glass" style="padding:20px;text-align:center"><div class="mono" style="font-size:24px;color:#ffd23f;font-weight:700">${QUESTS.length}</div><div style="font-size:12px;color:#bccabb;margin-top:4px">Active Quests Pool</div></div>
           <div class="glass" style="padding:20px;text-align:center"><div class="mono" style="font-size:24px;color:#c084fc;font-weight:700">100%</div><div style="font-size:12px;color:#bccabb;margin-top:4px">EcoGuard Integrity</div></div>
           <div class="glass" style="padding:20px;text-align:center"><div class="mono" style="font-size:24px;color:#fb923c;font-weight:700">${REWARDS.length}</div><div style="font-size:12px;color:#bccabb;margin-top:4px">PMC Campaigns</div></div>
         </div>
@@ -1272,16 +1474,16 @@ function renderRouteView(path) {
             <div style="display:flex;flex-direction:column;gap:10px">
               <button class="btn btn-ghost" style="justify-content:flex-start" onclick="navigate('/admin-users')">👥 User Directory (${db.length} Users)</button>
               <button class="btn btn-ghost" style="justify-content:flex-start" onclick="navigate('/admin-ecoguard')">🛡️ EcoGuard Anti-Cheat Audit</button>
-              <button class="btn btn-ghost" style="justify-content:flex-start" onclick="navigate('/admin-quests')">📜 Manage Quest Catalog</button>
+              <button class="btn btn-ghost" style="justify-content:flex-start" onclick="navigate('/admin-quests')">📜 Manage Quest Catalog (${QUESTS.length})</button>
             </div>
           </div>
           <div class="glass" style="padding:24px">
             <h3 style="font-size:16px;font-weight:700;color:#fff;margin-bottom:12px">Admin System Health</h3>
             <div style="font-size:13px;color:#bccabb;line-height:1.6">
-              • Database persistence: LocalStorage Active<br/>
+              • Database persistence: LocalStorage User-Scoped Active<br/>
               • Admin session: Valid (ann@gmail.com)<br/>
               • EcoGuard hash check: Operational<br/>
-              • GPS verification engine: Operational
+              • Daily Quest Auto-Refresh: Operational
             </div>
           </div>
         </div>
@@ -1301,7 +1503,7 @@ function renderRouteView(path) {
           ${db.map(uRec => `
             <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 24px;border-bottom:1px solid rgba(255,255,255,0.04)">
               <div style="display:flex;align-items:center;gap:12px">
-                <img src="${uRec.avatar||'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80'}" style="width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid ${uRec.role==='admin'?'#ffd23f':'#6bfb9a'}"/>
+                <img src="${uRec.avatar||'avatars/eco.png'}" style="width:40px;height:40px;border-radius:50%;object-fit:cover;border:2px solid ${uRec.role==='admin'?'#ffd23f':'#6bfb9a'}"/>
                 <div>
                   <div style="font-weight:700;color:#fff;font-size:15px">${uRec.name} ${uRec.role==='admin'?'👑':''}</div>
                   <div class="mono" style="font-size:12px;color:#bccabb">${uRec.email} • ${uRec.ward||'Kothrud'}</div>
@@ -1348,18 +1550,18 @@ function renderRouteView(path) {
     return `
       <div>
         <h1 style="font-size:28px;font-weight:800;color:#fff;margin-bottom:8px">Manage Quest Catalog</h1>
-        <p style="font-size:14px;color:#bccabb;margin-bottom:24px">Configure active quests, XP rewards, and carbon reduction metrics.</p>
+        <p style="font-size:14px;color:#bccabb;margin-bottom:24px">Active quests, daily rotation settings, and carbon reduction metrics (${QUESTS.length} Total Quests).</p>
 
         <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:20px">
           ${QUESTS.map(q => `
             <div class="glass" style="padding:20px">
               <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
                 <span class="chip chip-gold">+${q.xp} XP</span>
-                <span class="chip chip-purple">${q.type}</span>
+                <span class="chip ${q.duration==='Daily'?'chip-green':q.duration==='Weekly'?'chip-purple':'chip-gold'}">${q.duration}</span>
               </div>
               <div style="font-weight:700;color:#fff;font-size:16px;margin-bottom:4px">${q.title}</div>
               <div style="font-size:12px;color:#bccabb;margin-bottom:12px">${q.desc}</div>
-              <div style="font-size:12px;color:#6bfb9a" class="mono">-${q.co2} kg CO₂ Impact</div>
+              <div style="font-size:12px;color:#6bfb9a" class="mono">-${q.co2} kg CO₂ Impact • ${q.type}</div>
             </div>
           `).join('')}
         </div>
@@ -1371,27 +1573,47 @@ function renderRouteView(path) {
 }
 
 function renderQuestCard(q) {
-  const isDone = state.doneQuests.includes(q.id);
+  const isDone = isQuestDoneForUser(q, state.doneQuests);
+  const isDaily = q.duration === 'Daily';
+  const isWeekly = q.duration === 'Weekly';
+  const isSpecial = q.duration === 'Special';
+
   return `
-    <div class="glass" style="padding:20px;opacity:${isDone?0.6:1}">
-      <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px">
-        <span class="material-symbols-outlined" style="font-size:28px;color:#6bfb9a;background:rgba(107,251,154,0.1);padding:8px;border-radius:10px">${q.icon}</span>
-        <span class="chip chip-gold">+${q.xp} XP</span>
-      </div>
-      <div style="font-weight:700;color:#fff;font-size:16px;margin-bottom:6px">${q.title}</div>
-      <p style="font-size:13px;color:#bccabb;line-height:1.5;margin-bottom:14px">${q.desc}</p>
-      <div style="display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap">
-        <span class="chip chip-purple">${q.type}</span>
-        <span class="chip chip-green">-${q.co2} kg CO₂</span>
+    <div class="glass ${isDone ? '' : 'fade-up'}" style="padding:22px;display:flex;flex-direction:column;justify-content:space-between;opacity:${isDone ? 0.75 : 1};border:1px solid ${isDone ? 'rgba(255,255,255,0.06)' : isDaily ? 'rgba(107,251,154,0.3)' : 'rgba(255,255,255,0.1)'};position:relative;overflow:hidden">
+      ${isDaily ? `<div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#6bfb9a,#4ade80)"></div>` : isSpecial ? `<div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#ffd23f,#fb923c)"></div>` : ''}
+
+      <div>
+        <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px">
+          <div style="display:flex;align-items:center;gap:10px">
+            <span class="material-symbols-outlined" style="font-size:26px;color:#6bfb9a;background:rgba(107,251,154,0.12);padding:8px;border-radius:12px">${q.icon}</span>
+            <div>
+              <span class="chip ${isDaily ? 'chip-green' : isWeekly ? 'chip-purple' : 'chip-gold'}" style="font-size:10px;padding:2px 8px">
+                ${isDaily ? '📅 DAILY' : isWeekly ? '📆 WEEKLY' : '🏆 MILESTONE'}
+              </span>
+            </div>
+          </div>
+          <span class="chip chip-gold" style="font-size:12px">+${q.xp} XP</span>
+        </div>
+
+        <div style="font-weight:800;color:#fff;font-size:16px;margin-bottom:6px">${q.title}</div>
+        <p style="font-size:12.5px;color:#bccabb;line-height:1.5;margin-bottom:14px">${q.desc}</p>
+        
+        <div style="display:flex;gap:6px;margin-bottom:16px;flex-wrap:wrap">
+          <span class="chip chip-purple" style="font-size:11px">${q.type}</span>
+          <span class="chip chip-green" style="font-size:11px">-${q.co2} kg CO₂</span>
+          ${isDone ? `<span class="chip chip-green" style="font-size:11px">✓ VERIFIED</span>` : `<span class="chip chip-green" style="font-size:11px;background:rgba(107,251,154,0.06)">🟢 FRESH</span>`}
+        </div>
       </div>
       
-      <div style="display:flex;gap:8px">
-        <button class="btn ${isDone?'btn-ghost':'btn-primary'}" style="flex:2;font-size:13px;padding:10px" onclick="${isDone?'':'openQuestModal(\''+q.id+'\')'}">
-          ${isDone?'✓ Verified':'Accept & Complete'}
+      <div style="display:flex;gap:8px;margin-top:auto">
+        <button class="btn ${isDone ? 'btn-ghost' : 'btn-primary'}" 
+          style="flex:2;font-size:13px;padding:10px 14px" 
+          onclick="${isDone ? '' : 'openQuestModal(\'' + q.id + '\')'}">
+          ${isDone ? '✓ Verified (+XP Claimed)' : 'Accept & Complete →'}
         </button>
         ${!isDone ? `
-          <button class="btn btn-ghost" style="flex:1;font-size:12px;padding:10px;color:#ffd23f;border-color:rgba(255,210,63,0.3)" onclick="handleCantDoQuest('${q.id}')">
-            Can't Do This
+          <button class="btn btn-ghost" style="flex:1;font-size:12px;padding:10px 10px;color:#ffd23f;border-color:rgba(255,210,63,0.3)" onclick="handleCantDoQuest('${q.id}')" title="Ask AI for alternative quest">
+            Can't Do
           </button>
         ` : ''}
       </div>
@@ -1510,12 +1732,22 @@ function confirmQuestCompletion(qId) {
     levelTitle: newLvl.title,
     streak: streakData.streak,
     lastActiveDate: streakData.lastActiveDate,
-    completedCount: u.completedCount + 1,
-    co2Avoided: parseFloat((u.co2Avoided + q.co2).toFixed(1))
+    completedCount: (u.completedCount || 0) + 1,
+    co2Avoided: parseFloat(((u.co2Avoided || 0) + q.co2).toFixed(1))
   };
 
-  state.doneQuests.push(qId);
-  saveDoneQuests(state.doneQuests);
+  const todayStr = getLocalDateString();
+  const completionRecord = {
+    questId: qId,
+    completedAt: new Date().toISOString(),
+    date: todayStr,
+    duration: q.duration || 'Daily'
+  };
+
+  state.doneQuests = state.doneQuests.filter(d => (typeof d === 'string' ? d !== qId : d.questId !== qId));
+  state.doneQuests.push(completionRecord);
+  saveDoneQuests(u.id, state.doneQuests);
+
   state.activeQuestModal = null;
   state.uploadedProof = null;
   updateUser(updated);
@@ -1599,7 +1831,7 @@ function renderCantDoModal() {
           <span class="mono" style="font-size:12px;color:#ffd23f">AI QUEST PERSONALIZATION ADAPTOR</span>
         </div>
         <h3 style="font-size:20px;font-weight:800;color:#fff;margin-bottom:6px">No problem! Quest Adapted</h3>
-        <p style="font-size:13px;color:#bccabb;margin-bottom:20px">Since <strong>"${rejected.title}"</strong> isn't convenient right now, our AI engine selected these 2 personalized alternative eco-actions:</p>
+        <p style="font-size:13px;color:#bccabb;margin-bottom:20px">Since <strong>"${rejected.title}"</strong> isn't convenient right now, our AI engine selected these personalized alternative eco-actions:</p>
 
         <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:24px">
           ${alternatives.map(alt => `
