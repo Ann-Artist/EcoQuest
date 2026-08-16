@@ -259,8 +259,17 @@ function saveSession(u) { localStorage.setItem(SK.SESSION, JSON.stringify(u)); }
 function clearSession() { localStorage.removeItem(SK.SESSION); }
 
 function getUserDoneQuestsKey(userId) {
-  const uid = userId || state?.user?.id || 'guest_user';
-  return `eq_done_quests_v4_${uid}`;
+  let uid = userId;
+  if (!uid) {
+    try {
+      if (typeof state !== 'undefined' && state && state.user && state.user.id) {
+        uid = state.user.id;
+      }
+    } catch (e) {
+      uid = null;
+    }
+  }
+  return `eq_done_quests_v4_${uid || 'guest_user'}`;
 }
 
 function getDoneQuests(userId) {
