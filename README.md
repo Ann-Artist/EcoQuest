@@ -223,6 +223,13 @@ Instead of only telling users about sustainability, EcoQuest turns sustainable b
 
 ---
 
-## 🛡️ License
+## 👥 Team DroneAcharya
 
-ISC License — Hackathon Project.
+| Role | Member |
+|------|--------|
+| Team Leader | Anusha Randive |
+| Team Member | Bhumika Andure |
+| Team Member | Atharv Yadav |
+| Team Member | Ritesh Survase |
+| Team Member | Jay Wankhade |
+| Team Member | Ayushi Tabhane |
