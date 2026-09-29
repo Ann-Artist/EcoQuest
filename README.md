@@ -85,6 +85,14 @@ AI and carbon calculation are separate layers.
 
 Carbon values are calculated using deterministic formulas and emission factors.
 
+#### 🔬 Deterministic Carbon Formulas
+
+- **Transport**: `(daily_distance_km × travel_days_per_week × 4.33) × transport_factor`
+- **Electricity**: `(monthly_bill / 8.0 / household_size) × 0.82 kg CO2e/kWh`
+- **Food**: `daily_factor (vegetarian: 0.9, mixed: 1.6, non_vegetarian: 2.5) × 30 days`
+- **Shopping**: `minimal: 20, moderate: 60, frequent: 120 kg CO2e/month`
+- **Waste**: `segregated: 5, partially_segregated: 15, unsegregated: 30 kg CO2e/month`
+
 ### AI Layer
 
 AI is used for:
