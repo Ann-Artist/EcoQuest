@@ -68,6 +68,55 @@ module.exports = {
       description: 'Accumulate 500 EcoXP.',
       criteria: { type: 'total_xp', threshold: 500 },
       icon: 'shield'
+    },
+    {
+      badge_key: 'waste_starter',
+      name: 'Waste Starter',
+      description: 'Complete your first verified waste segregation quest.',
+      criteria: { type: 'quest_completed', quest_key: 'waste_segregation' },
+      icon: 'trash-2'
+    },
+    {
+      badge_key: 'responsible_disposer',
+      name: 'Responsible Disposer',
+      description: 'Complete a verified responsible waste disposal action.',
+      criteria: { type: 'quest_completed', quest_key: 'responsible_disposal' },
+      icon: 'recycle'
+    },
+    {
+      badge_key: 'ewaste_responsible',
+      name: 'E-Waste Responsible',
+      description: 'Complete a verified e-waste responsibility mission.',
+      criteria: { type: 'quest_completed', quest_key: 'ewaste_responsibility' },
+      icon: 'cpu'
+    },
+    {
+      badge_key: 'clean_space',
+      name: 'Clean Space',
+      description: 'Complete a verified cleaning & sanitization mission.',
+      criteria: { type: 'quest_completed', quest_key: 'clean_sanitize_area' },
+      icon: 'sparkles'
+    },
+    {
+      badge_key: 'plastic_reducer',
+      name: 'Plastic Reducer',
+      description: 'Complete a verified plastic-reduction mission.',
+      criteria: { type: 'quest_completed', quest_key: 'reduce_single_use_plastic' },
+      icon: 'ban'
+    },
+    {
+      badge_key: 'circular_habit',
+      name: 'Circular Habit',
+      description: 'Complete a verified reuse or repair mission.',
+      criteria: { type: 'quest_completed', quest_key: 'reuse_instead_replace' },
+      icon: 'refresh-cw'
+    },
+    {
+      badge_key: 'community_green',
+      name: 'Community Green',
+      description: 'Complete a verified community cleanliness action.',
+      criteria: { type: 'quest_completed', quest_key: 'community_cleanliness' },
+      icon: 'users'
     }
   ],
 

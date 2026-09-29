@@ -20,7 +20,7 @@ function seedDatabase(db) {
       `);
 
       Object.values(questConfig).forEach((q) => {
-        let baseReward = 20;
+        let baseReward = q.fixed_xp || 20;
         if (q.quest_key === 'public_transport') baseReward = q.min_xp;
         if (q.quest_key === 'cycling') baseReward = q.xp_per_km * 5; // e.g., 50 XP
         if (q.quest_key === 'electricity') baseReward = q.base_rewards.medium_usage;

@@ -7,14 +7,22 @@ import QuestCompleteModal from '../components/QuestCompleteModal';
 import LevelUpModal from '../components/LevelUpModal';
 import { questApi } from '../services/questApi';
 import { submissionApi } from '../services/submissionApi';
-import { Bus, Bike, Zap, Sprout, ArrowRight, ArrowLeft, ShieldCheck, RefreshCw } from 'lucide-react';
+import { Bus, Bike, Zap, Sprout, ArrowRight, ArrowLeft, ShieldCheck, RefreshCw, Trash2, Recycle, Cpu, Sparkles, Ban, Apple, Users } from 'lucide-react';
 import '../styles/index.css';
 
 const questIcons = {
   public_transport: Bus,
   cycling: Bike,
   electricity: Zap,
-  plant_care: Sprout
+  plant_care: Sprout,
+  waste_segregation: Trash2,
+  responsible_disposal: Recycle,
+  ewaste_responsibility: Cpu,
+  clean_sanitize_area: Sparkles,
+  reduce_single_use_plastic: Ban,
+  reduce_food_waste: Apple,
+  reuse_instead_replace: RefreshCw,
+  community_cleanliness: Users
 };
 
 export default function QuestDetailPage({ userId, onRefresh }) {
@@ -179,6 +187,9 @@ export default function QuestDetailPage({ userId, onRefresh }) {
   const Icon = questIcons[quest?.quest_key] || Sprout;
 
   // Define steps per quest type
+  const twoProofQuests = ['waste_segregation', 'responsible_disposal', 'ewaste_responsibility', 'clean_sanitize_area', 'reuse_instead_replace', 'community_cleanliness'];
+  const singleProofQuests = ['reduce_single_use_plastic', 'reduce_food_waste'];
+
   let steps = [
     { title: 'Start Mission' },
     { title: 'Action & Proof' },
@@ -197,6 +208,17 @@ export default function QuestDetailPage({ userId, onRefresh }) {
       { title: 'Bicycle Start Proof' },
       { title: 'Finish Proof & Distance' },
       { title: 'AI Consistency Check' }
+    ];
+  } else if (twoProofQuests.includes(quest?.quest_key)) {
+    steps = [
+      { title: 'Start / Before Proof' },
+      { title: 'Completion / After Proof' },
+      { title: 'Verification' }
+    ];
+  } else if (singleProofQuests.includes(quest?.quest_key)) {
+    steps = [
+      { title: 'Action Photo Proof' },
+      { title: 'Verification' }
     ];
   }
 
@@ -481,7 +503,102 @@ export default function QuestDetailPage({ userId, onRefresh }) {
                   Evaluating photo proof, plant detection, and cooldown window...
                 </p>
                 <button className="btn-emerald" style={{ padding: '0.85rem 2rem' }} onClick={handleExecuteVerification} disabled={verifying}>
-                  {verifying ? <RefreshCw size={20} className="animate-spin" /> : 'Verify & Claim +25 EcoXP'}
+                  {verifying ? <RefreshCw size={20} className="animate-spin" /> : 'Verify & Claim EcoXP'}
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Dynamic Workflow for Two-Proof Missions (Q05, Q06, Q07, Q08, Q11, Q12) */}
+        {twoProofQuests.includes(quest?.quest_key) && (
+          <div>
+            {currentStep === 0 && (
+              <div>
+                <h3 style={{ fontSize: '1.1rem', marginBottom: '0.5rem' }}>Step 1: Start / Before Proof Photo</h3>
+                <p style={{ fontSize: '0.88rem', color: '#64748b', marginBottom: '1rem' }}>
+                  Upload initial photo proof showing starting state, waste item, or area before action.
+                </p>
+                <ProofUploader label="Upload Initial / Start Proof Photo" onFileSelect={setStartFile} />
+                <GeoCapture onLocationCaptured={setGeoData} />
+                <button className="btn-emerald" style={{ marginTop: '1.5rem', width: '100%' }} onClick={async () => {
+                  if (!startFile) {
+                    setError('Please select an initial proof photo before proceeding.');
+                    return;
+                  }
+                  await handleStartMission();
+                  await handleAttachProofAndContinue('START_PROOF', startFile, 1);
+                }}>
+                  Submit Start Proof <ArrowRight size={18} />
+                </button>
+              </div>
+            )}
+
+            {currentStep === 1 && (
+              <div>
+                <h3 style={{ fontSize: '1.1rem', marginBottom: '0.5rem' }}>Step 2: Completion / After Proof Photo</h3>
+                <p style={{ fontSize: '0.88rem', color: '#64748b', marginBottom: '1rem' }}>
+                  Upload completion photo proof showing separated waste, drop-off handover, or cleaned area.
+                </p>
+                <ProofUploader label="Upload Completion / After Proof Photo" onFileSelect={setEndFile} />
+                <button className="btn-emerald" style={{ marginTop: '1.5rem', width: '100%' }} onClick={() => {
+                  if (!endFile) {
+                    setError('Please select a completion proof photo before proceeding.');
+                    return;
+                  }
+                  handleAttachProofAndContinue('END_PROOF', endFile, 2);
+                }}>
+                  Submit Completion Proof & Proceed to Verification <ArrowRight size={18} />
+                </button>
+              </div>
+            )}
+
+            {currentStep === 2 && (
+              <div style={{ textAlign: 'center', padding: '2rem 0' }}>
+                <h3 style={{ fontSize: '1.3rem', marginBottom: '0.5rem' }}>Verifying Mission Evidence</h3>
+                <p style={{ fontSize: '0.9rem', color: '#64748b', marginBottom: '1.5rem' }}>
+                  Analyzing two-proof sequence, timestamp order, duplicate hashes, and visual consistency...
+                </p>
+                <button className="btn-emerald" style={{ padding: '0.85rem 2rem' }} onClick={handleExecuteVerification} disabled={verifying}>
+                  {verifying ? <RefreshCw size={20} className="animate-spin" /> : `Verify & Claim +${quest.base_reward} EcoXP`}
+                </button>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Dynamic Workflow for Single-Proof Missions (Q09, Q10) */}
+        {singleProofQuests.includes(quest?.quest_key) && (
+          <div>
+            {currentStep === 0 && (
+              <div>
+                <h3 style={{ fontSize: '1.1rem', marginBottom: '0.5rem' }}>Action Proof Photo</h3>
+                <p style={{ fontSize: '0.88rem', color: '#64748b', marginBottom: '1rem' }}>
+                  Upload clear photo evidence of your reusable alternative or food waste reduction action.
+                </p>
+                <ProofUploader label="Upload Action Photo Proof" onFileSelect={setPlantFile} />
+                <GeoCapture onLocationCaptured={setGeoData} />
+                <button className="btn-emerald" style={{ marginTop: '1.5rem', width: '100%' }} onClick={async () => {
+                  if (!plantFile) {
+                    setError('Please select an action proof photo before proceeding.');
+                    return;
+                  }
+                  await handleStartMission();
+                  await handleAttachProofAndContinue('PROOF', plantFile, 1);
+                }}>
+                  Submit Proof & Continue <ArrowRight size={18} />
+                </button>
+              </div>
+            )}
+
+            {currentStep === 1 && (
+              <div style={{ textAlign: 'center', padding: '2rem 0' }}>
+                <h3 style={{ fontSize: '1.3rem', marginBottom: '0.5rem' }}>Verifying Action Evidence</h3>
+                <p style={{ fontSize: '0.9rem', color: '#64748b', marginBottom: '1.5rem' }}>
+                  Analyzing photo proof context, duplicate hashes, and cooldown limits...
+                </p>
+                <button className="btn-emerald" style={{ padding: '0.85rem 2rem' }} onClick={handleExecuteVerification} disabled={verifying}>
+                  {verifying ? <RefreshCw size={20} className="animate-spin" /> : `Verify & Claim +${quest.base_reward} EcoXP`}
                 </button>
               </div>
             )}

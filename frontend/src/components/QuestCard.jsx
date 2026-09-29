@@ -1,20 +1,36 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Bus, Bike, Zap, Sprout, ShieldAlert, ArrowRight, Clock, Award } from 'lucide-react';
+import { Bus, Bike, Zap, Sprout, ShieldAlert, ArrowRight, Clock, Award, Trash2, Recycle, Cpu, Sparkles, Ban, Apple, RefreshCw, Users } from 'lucide-react';
 import '../styles/components.css';
 
 const questIcons = {
   public_transport: Bus,
   cycling: Bike,
   electricity: Zap,
-  plant_care: Sprout
+  plant_care: Sprout,
+  waste_segregation: Trash2,
+  responsible_disposal: Recycle,
+  ewaste_responsibility: Cpu,
+  clean_sanitize_area: Sparkles,
+  reduce_single_use_plastic: Ban,
+  reduce_food_waste: Apple,
+  reuse_instead_replace: RefreshCw,
+  community_cleanliness: Users
 };
 
 const categoryClasses = {
   public_transport: 'transport',
   cycling: 'cycling',
   electricity: 'energy',
-  plant_care: 'nature'
+  plant_care: 'nature',
+  waste_segregation: 'nature',
+  responsible_disposal: 'nature',
+  ewaste_responsibility: 'nature',
+  clean_sanitize_area: 'nature',
+  reduce_single_use_plastic: 'nature',
+  reduce_food_waste: 'nature',
+  reuse_instead_replace: 'nature',
+  community_cleanliness: 'nature'
 };
 
 export default function QuestCard({ quest }) {

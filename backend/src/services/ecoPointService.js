@@ -40,6 +40,46 @@ class EcoPointService {
         reason = 'Plant Care activity completed';
         break;
       }
+      case 'waste_segregation': {
+        points = questConfig.waste_segregation.fixed_xp || 35;
+        reason = 'Waste Segregation activity completed';
+        break;
+      }
+      case 'responsible_disposal': {
+        points = questConfig.responsible_disposal.fixed_xp || 40;
+        reason = 'Responsible Waste Disposal completed';
+        break;
+      }
+      case 'ewaste_responsibility': {
+        points = questConfig.ewaste_responsibility.fixed_xp || 60;
+        reason = 'E-Waste Handover completed';
+        break;
+      }
+      case 'clean_sanitize_area': {
+        points = questConfig.clean_sanitize_area.fixed_xp || 30;
+        reason = 'Shared Area Clean & Sanitize completed';
+        break;
+      }
+      case 'reduce_single_use_plastic': {
+        points = questConfig.reduce_single_use_plastic.fixed_xp || 25;
+        reason = 'Plastic Reduction action completed';
+        break;
+      }
+      case 'reduce_food_waste': {
+        points = questConfig.reduce_food_waste.fixed_xp || 25;
+        reason = 'Food Waste Reduction action completed';
+        break;
+      }
+      case 'reuse_instead_replace': {
+        points = questConfig.reuse_instead_replace.fixed_xp || 35;
+        reason = 'Item Reuse / Repair completed';
+        break;
+      }
+      case 'community_cleanliness': {
+        points = questConfig.community_cleanliness.fixed_xp || 50;
+        reason = 'Community Cleanliness activity completed';
+        break;
+      }
     }
 
     return { points, reason };
