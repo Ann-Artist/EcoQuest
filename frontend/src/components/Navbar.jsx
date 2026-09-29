@@ -6,7 +6,7 @@ export default function Navbar({ onToggleSidebar }) {
   return (
     <header className="navbar-mobile">
       <div className="navbar-brand">
-        <Leaf size={22} className="brand-icon-mobile" style={{ color: '#22c55e' }} />
+        <img src="/logo.png" alt="EcoQuest Logo" style={{ width: '28px', height: '28px', objectFit: 'contain' }} />
         <span>EcoQuest</span>
       </div>
 

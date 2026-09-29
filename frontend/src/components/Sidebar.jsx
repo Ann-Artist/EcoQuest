@@ -40,8 +40,8 @@ export default function Sidebar({ user, progression, isOpen, onClose }) {
       <aside className={`sidebar-container ${isOpen ? 'open' : ''}`}>
         {/* Brand Header */}
         <div className="sidebar-brand">
-          <div className="brand-logo-glow">
-            <Leaf className="brand-icon" size={26} />
+          <div className="brand-logo-glow" style={{ background: 'transparent', padding: 0 }}>
+            <img src="/logo.png" alt="EcoQuest Logo" style={{ width: '36px', height: '36px', objectFit: 'contain' }} />
           </div>
           <div className="brand-text">
             <span className="brand-title">EcoQuest</span>
